@@ -8,4 +8,9 @@ class User
 
   has_one :coordinate
   has_and_belongs_to_many :tags
+
+  def able_to_meet? (another_user)
+    Invitation.where(from: self, to: another_user, accepted: true).any? or
+    Invitation.where(from: another_user, to: self, accepted: true).any?
+  end
 end

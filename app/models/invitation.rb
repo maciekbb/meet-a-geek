@@ -7,4 +7,6 @@ class Invitation
 
   belongs_to :from, class_name: "User", inverse_of: :outcoming_invitations
   belongs_to :to, class_name: "User", inverse_of: :incoming_invitations
+
+  validates :from, :to, presence: true
 end
