@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
+  namespace "tags" do
+    get 'index'
+    patch 'update'
+  end
+
   namespace "invitations" do
     post 'invite'
-    post 'accept'
-    post 'reject'  
+    patch 'accept'
+    patch 'reject'
     get 'incoming_invitations'
     get 'outcoming_invitations'
   end

@@ -22,7 +22,7 @@ describe InvitationsController, :type => :controller do
     it "invited user can't be nil" do
 
       request.headers['Authorization'] = token_header(user.auth_token)
-      post 'invite', { user_id: nil }
+      patch 'invite', { user_id: nil }
 
       expect(response.status).to eq 422
     end
@@ -32,7 +32,7 @@ describe InvitationsController, :type => :controller do
     it "accepts a invitation" do
       invitation = Invitation.create(from: another_user, to: user)
 
-      post 'accept', { invitation_id: invitation.id }
+      patch 'accept', { invitation_id: invitation.id }
       expect(response.status).to eq 204
 
       expect(invitation.reload.accepted).to eq true
