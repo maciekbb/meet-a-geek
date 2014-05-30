@@ -15,7 +15,6 @@ describe InvitationsController, :type => :controller do
       expect(response.status).to eq 201
 
       invitation = JSON.parse(response.body)
-      puts invitation
       expect(invitation["from_id"]["$oid"]).to eq user.id.to_s
       expect(invitation["to_id"]["$oid"]).to eq another_user.id.to_s
     end
@@ -23,31 +22,46 @@ describe InvitationsController, :type => :controller do
     it "invited user can't be nil" do
 
       request.headers['Authorization'] = token_header(user.auth_token)
-      post 'invite', { user_id: nil }, {}
+      post 'invite', { user_id: nil }
 
       expect(response.status).to eq 422
     end
   end
 
-  # describe "GET 'accept'" do
-  #   it "returns http success" do
-  #     get 'accept'
-  #     expect(response).to be_success
-  #   end
-  # end
-  #
-  # describe "GET 'incoming_invitations'" do
-  #   it "returns http success" do
-  #     get 'incoming_invitations'
-  #     expect(response).to be_success
-  #   end
-  # end
-  #
-  # describe "GET 'outcoming_invitations'" do
-  #   it "returns http success" do
-  #     get 'outcoming_invitations'
-  #     expect(response).to be_success
-  #   end
-  # end
+  describe "POST 'accept'" do
+    it "accepts a invitation" do
+      invitation = Invitation.create(from: another_user, to: user)
+
+      post 'accept', { invitation_id: invitation.id }
+      expect(response.status).to eq 204
+
+      expect(invitation.reload.accepted).to eq true
+    end
+  end
+
+  describe "POST 'reject'" do
+    it "rejects a invitation" do
+      invitation = Invitation.create(from: another_user, to: user)
+
+      post 'reject', { invitation_id: invitation.id }
+      expect(response.status).to eq 204
+
+      expect(invitation.reload.rejected).to eq true
+    end
+  end
+
+  describe "GET 'incoming_invitations'" do
+    it "returns http success" do
+      get 'incoming_invitations'
+      expect(response).to be_success
+    end
+  end
+
+  describe "GET 'outcoming_invitations'" do
+    it "returns http success" do
+      get 'outcoming_invitations'
+      expect(response).to be_success
+    end
+  end
 
 end

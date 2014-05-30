@@ -3,7 +3,7 @@ class InvitationsController < ApplicationController
     begin
       target_user = User.find(params[:user_id])
     rescue
-
+      # render error ?
     end
 
     invitation = Invitation.new(from: @user, to: target_user, message: params[:message])
@@ -15,11 +15,34 @@ class InvitationsController < ApplicationController
   end
 
   def accept
+    invitation = @user.incoming_invitations.find(params[:invitation_id])
+    invitation.accepted = true
+
+    if invitation.save
+      head 204
+    else
+      render json: invitation.errors, status: 422
+    end
+  end
+
+  def reject
+    invitation = @user.incoming_invitations.find(params[:invitation_id])
+    invitation.rejected = true
+
+    if invitation.save
+      head 204
+    else
+      render json: invitation.errors, status: 422
+    end
   end
 
   def incoming_invitations
+    invitations = @user.incoming_invitations
+    render json: invitations, status: 200
   end
 
   def outcoming_invitations
+    invitations = @user.outcoming_invitations
+    render json: invitations, status: 200
   end
 end
