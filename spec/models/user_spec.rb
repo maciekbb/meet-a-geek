@@ -1,15 +1,12 @@
 require 'spec_helper'
 
 describe User, :type => :model do
-  before(:each) do
-    Coordinate.destroy_all
-    Tag.destroy_all
-  end
 
   describe "invitations" do
+    let(:user_a) { User.create(name: "Maciek")  }
+    let(:user_b) { User.create(name: "Piotrek")  }
+
     it "can invite another user" do
-      user_a = User.create(name: "Maciek")
-      user_b = User.create(name: "Krzysiek")
       invitation = user_a.outcoming_invitations.create(to: user_b)
 
       expect(invitation.from).to eq user_a
@@ -20,22 +17,17 @@ describe User, :type => :model do
   end
 
   describe "tags" do
-    it "can have multiple tags" do
-      java = Tag.create(name: "java")
-      python = Tag.create(name: "python")
+    let(:java) { Tag.create(name: "java") }
+    let(:python) { Tag.create(name: "python") }
+    let(:user) { User.create(name: "Maciek")  }
 
-      user = User.create(name: "Maciek")
+    it "can have multiple tags" do
       user.tags << java
       user.tags << python
 
       expect(user.tags).to eq [java, python]
       expect(java.users).to eq [user]
     end
-  end
-
-  after(:each) do
-    User.destroy_all
-    Tag.destroy_all
   end
 
 end
