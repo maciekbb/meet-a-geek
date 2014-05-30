@@ -30,4 +30,28 @@ describe User, :type => :model do
     end
   end
 
+  let(:user_a) { User.create(name: "Maciek")  }
+  let(:user_b) { User.create(name: "Piotrek")  }
+
+  describe "able to meet" do
+    it "can't meet when no invitations" do
+      expect(user_a).not_to be_able_to_meet(user_b)
+      expect(user_b).not_to be_able_to_meet(user_a)
+    end
+
+    it "can't meet when invitation isn't acceted" do
+      invitation = Invitation.create(from: user_a, to: user_b)
+
+      expect(user_a).not_to be_able_to_meet(user_b)
+      expect(user_b).not_to be_able_to_meet(user_a)
+    end
+
+    it "can meet when exists accepted invitation" do
+      invitation = Invitation.create(from: user_a, to: user_b, accepted: true)
+
+      expect(user_a).to be_able_to_meet(user_b)
+      expect(user_b).to be_able_to_meet(user_a)
+    end
+  end
+
 end
