@@ -11,6 +11,8 @@ class User
 
   accepts_nested_attributes_for :coordinate
 
+  before_create :set_auth_token
+
   def able_to_meet? (another_user)
     Invitation.where(from: self, to: another_user, accepted: true).any? or
     Invitation.where(from: another_user, to: self, accepted: true).any?
@@ -23,6 +25,20 @@ class User
       end
     else
       []
+    end
+  end
+
+  protected
+
+  def set_auth_token
+    return if auth_token.present?
+    self.auth_token = generate_auth_token
+  end
+
+  def generate_auth_token
+    loop do
+      token = SecureRandom.hex
+      break token unless self.class.where(auth_token: token).any?
     end
   end
 end
