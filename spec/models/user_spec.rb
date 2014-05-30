@@ -30,10 +30,10 @@ describe User, :type => :model do
     end
   end
 
-  let(:user_a) { User.create(name: "Maciek")  }
-  let(:user_b) { User.create(name: "Piotrek")  }
-
   describe "able to meet" do
+    let(:user_a) { User.create(name: "Maciek")  }
+    let(:user_b) { User.create(name: "Piotrek")  }
+
     it "can't meet when no invitations" do
       expect(user_a).not_to be_able_to_meet(user_b)
       expect(user_b).not_to be_able_to_meet(user_a)
@@ -51,6 +51,31 @@ describe User, :type => :model do
 
       expect(user_a).to be_able_to_meet(user_b)
       expect(user_b).to be_able_to_meet(user_a)
+    end
+  end
+
+  describe "matches" do
+
+    let(:user_a) { User.create(name: "Maciek", coordinate_attributes: { location: [10, 20] })  }
+    let(:user_b) { User.create(name: "Piotrek", coordinate_attributes: { location: [10, 20] })  }
+
+    let(:java) { Tag.create(name: "java") }
+    let(:python) { Tag.create(name: "python") }
+
+    it "are matches when share tags" do
+      user_a.tags << java
+      user_b.tags << java
+
+      expect(user_a.matches).to include(user_b)
+      expect(user_b.matches).to include(user_a)
+    end
+
+    it "arent matches when dont share tags" do
+      user_a.tags << java
+      user_b.tags << python
+
+      expect(user_a.matches).not_to include(user_b)
+      expect(user_b.matches).not_to include(user_a)
     end
   end
 
