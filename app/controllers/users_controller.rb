@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    user = @user
 
     if user.update(user_attributes)
       render json: user, status: :ok

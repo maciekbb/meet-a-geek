@@ -23,7 +23,7 @@ describe UsersController, :type => :controller do
 
   describe "PATCH 'update'" do
     it "returns http success" do
-      patch 'update', { id: user.id, user: { coordinate_attributes: { location: [10, 20] } } }
+      patch 'update', { user: { coordinate_attributes: { location: [10, 20] } } }
 
       expect(response.status).to eq 200
       expect(user.reload.coordinate.location).to eq [10, 20]
