@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'invitations/invite'
+
+  get 'invitations/accept'
+
+  get 'invitations/incoming_invitations'
+
+  get 'invitations/outcoming_invitations'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
