@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  namespace "users" do
+    get 'index'
+    post 'create'
+    patch 'update'
+    delete 'delete'
+  end
+
   namespace "tags" do
     get 'index'
     patch 'update'
