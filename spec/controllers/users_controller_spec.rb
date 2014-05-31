@@ -7,9 +7,9 @@ describe UsersController, :type => :controller do
     request.headers['Authorization'] = token_header(user.auth_token)
   end
 
-  describe "GET 'index'" do
+  describe "GET 'matches'" do
     it "returns http success" do
-      get 'index'
+      get 'matches'
       expect(response.status).to eq 200
     end
   end

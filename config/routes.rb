@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
 
-  get '/users/index', to: 'users#index'
+  get '/users/matches', to: 'users#matches'
   get '/users/:id/avatar', to: 'users#avatar'
 
   resource :user, only: [:create, :update, :destroy]
 
-  namespace "tags" do
-    get 'index'
-    patch 'update'
-  end
+  get '/tags', to: "tags#index"
+  resource :tag, only: [:update]
 
   namespace "invitations" do
     post 'invite'
