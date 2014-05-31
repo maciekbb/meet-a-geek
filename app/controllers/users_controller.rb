@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       content = another_user.avatar.read
       send_data content, type: another_user.avatar.file.content_type, disposition: "inline"
     else
-      render nothing: true
+      render json: "Not authorized", status: 401
     end
   end
 
