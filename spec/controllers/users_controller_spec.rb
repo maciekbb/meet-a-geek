@@ -16,7 +16,11 @@ describe UsersController, :type => :controller do
 
   describe "POST 'create'" do
     it "returns http success" do
-      post 'create', { user: { name: "Maciek", coordinate_attributes: { location: [20, 10] } } }
+      post 'create', { user: { name: "Piotrek", coordinate_attributes: { location: [20, 10] } } }
+
+      new_user = JSON.parse(response.body)
+      expect(new_user["name"]).to eq "Piotrek"
+      expect(new_user["auth_token"]).to be_present
       expect(response.status).to eq 201
     end
   end
@@ -30,9 +34,9 @@ describe UsersController, :type => :controller do
     end
   end
 
-  describe "DELETE 'delete'" do
+  describe "DELETE 'destroy'" do
     it "returns http success" do
-      get 'delete'
+      delete 'destroy'
       expect(response.status).to eq 204
     end
   end

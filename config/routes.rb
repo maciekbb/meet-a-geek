@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
 
-  namespace "users" do
-    get 'index'
-    post 'create'
-    patch 'update'
-    delete 'delete'
-  end
+  get '/users/index', to: 'users#index'
+  get '/users/:id/avatar', to: 'users#avatar'
+
+  resource :user, only: [:create, :update, :destroy]
 
   namespace "tags" do
     get 'index'
