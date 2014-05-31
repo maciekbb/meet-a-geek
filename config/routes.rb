@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/users/matches', to: 'users#matches'
+  get '/matches', to: 'users#matches'
   get '/users/:id/avatar', to: 'users#avatar'
 
   resource :user, only: [:create, :update, :destroy]
