@@ -45,4 +45,6 @@ group :development, :test do
 end
 
 gem 'mongoid', "~> 4.0.0.beta"
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
 gem "database_cleaner"

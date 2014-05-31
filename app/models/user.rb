@@ -3,6 +3,8 @@ class User
   field :name, type: String
   field :auth_token, type: String
 
+  mount_uploader :avatar, AvatarUploader
+
   has_many :incoming_invitations, class_name: "Invitation", inverse_of: :to
   has_many :outcoming_invitations, class_name: "Invitation", inverse_of: :from
 
