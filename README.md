@@ -112,6 +112,24 @@ message=InvitationMessage
 To samo co w outcoming
 ```
 
+* HTTP.PATCH - /invitations/accept(.:format)
+```
+invitation_id=538fb13b3661650002690000
+```
+---
+```
+Nic nie zwraca
+```
+
+* HTTP.PATCH - /invitations/reject(.:format)
+```
+invitation_id=538fb13b3661650002690000
+```
+---
+```
+Nic nie zwraca
+```
+
 # Usage example
 
 Please take a look at `spec/controllers` directory for all common usage examples.
