@@ -18,6 +18,16 @@ GET | /invitations/outcoming_invitations(.:format) | invitations#outcoming_invit
 # Http Queries with Returned JSONs
 
 * HTTP.POST - /user(.:format)
+  
+```json
+{
+    "id": {
+        "$oid": "538f84183661650002190000"
+    },
+    "name": "UserName",
+    "auth_token": "e167104a12af9a8fbbafb3332f6559be"
+}
+```
 * 
 
 
