@@ -28,8 +28,89 @@ GET | /invitations/outcoming_invitations(.:format) | invitations#outcoming_invit
     "auth_token": "e167104a12af9a8fbbafb3332f6559be"
 }
 ```
-* 
 
+* HTTP.PATCH - /user(.:format)
+```
+user[coordinate_attributes][location][]=(longitude)
+user[coordinate_attributes][location][]=(latitude)
+```
+---
+```json
+{
+    "id": {
+        "$oid": "538f84183661650002190000"
+    },
+    "name": "Muuuucka"
+}
+```
+
+* HTTP.POST - /invitations/invite(.:format)
+```
+user_id=538faa9c3661650002580000
+message=InvitationMessage
+```
+---
+```json
+{
+    "_id": {
+        "$oid": "538faac936616500025a0000"
+    },
+    "accepted": null,
+    "from_id": {
+        "$oid": "538f84183661650002190000"
+    },
+    "message": "asdflajsdflkajsf",
+    "rejected": null,
+    "to_id": {
+        "$oid": "538faa9c3661650002580000"
+    }
+}
+```
+
+* HTTP.GET - /invitations/outcoming_invitations(.:format)
+```
+{
+    "invitations": [
+        {
+            "invitations": {
+                "_id": {
+                    "$oid": "538faaba3661650002590000"
+                },
+                "accepted": null,
+                "from_id": {
+                    "$oid": "538f84183661650002190000"
+                },
+                "message": null,
+                "rejected": null,
+                "to_id": {
+                    "$oid": "538faa9c3661650002580000"
+                }
+            }
+        },
+        {
+            "invitations": {
+                "_id": {
+                    "$oid": "538faac936616500025a0000"
+                },
+                "accepted": null,
+                "from_id": {
+                    "$oid": "538f84183661650002190000"
+                },
+                "message": "asdflajsdflkajsf",
+                "rejected": null,
+                "to_id": {
+                    "$oid": "538faa9c3661650002580000"
+                }
+            }
+        }
+    ]
+}
+```
+
+* HTTP.GET - /invitations/incoming_invitations(.:format)
+```
+To samo co w outcoming
+```
 
 # Usage example
 
