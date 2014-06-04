@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  get '/matches', to: 'users#matches'
+  get '/users/:id/avatar', to: 'users#avatar'
+
+  resource :user, only: [:create, :update, :destroy]
+
+  get '/tags', to: "tags#index"
+  resource :tag, only: [:update]
+
+  namespace "invitations" do
+    post 'invite'
+    patch 'accept'
+    patch 'reject'
+    get 'incoming_invitations'
+    get 'outcoming_invitations'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
