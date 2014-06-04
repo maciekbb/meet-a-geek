@@ -15,6 +15,12 @@ PATCH | /invitations/reject(.:format) | invitations#reject | rejects an invitati
 GET | /invitations/incoming_invitations(.:format) | invitations#incoming_invitations | fetch incoming invitations
 GET | /invitations/outcoming_invitations(.:format) | invitations#outcoming_invitations | fetch outcoming invitatios
 
+# Http Queries with Returned JSONs
+
+* HTTP.POST - /user(.:format)
+* 
+
+
 # Usage example
 
 Please take a look at `spec/controllers` directory for all common usage examples.
