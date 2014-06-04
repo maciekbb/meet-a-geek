@@ -68,7 +68,7 @@ message=InvitationMessage
 ```
 
 * HTTP.GET - /invitations/outcoming_invitations(.:format)
-```
+```json
 {
     "invitations": [
         {
