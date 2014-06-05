@@ -17,6 +17,26 @@ GET | /invitations/outcoming_invitations(.:format) | invitations#outcoming_invit
 
 # Http Queries with Returned JSONs
 
+* HTTP.GET - /matches(.:format)
+```json
+{
+    "users": [
+        {
+            "id": {
+                "$oid": "5390d1343662360002040000"
+            },
+            "name": "Maciek"
+        },
+        {
+            "id": {
+                "$oid": "5390d3353265380002010000"
+            },
+            "name": "Krzysiu"
+        }
+    ]
+}
+```
+
 * HTTP.POST - /user(.:format)
   
 ```json
