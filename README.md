@@ -77,7 +77,7 @@ user[coordinate_attributes][location][]=(latitude)
                 "user_ids": [
                     {
                         "$oid": "5390ccde3662360002000000"
-                    }
+                    },
                 ]
             }
         },
@@ -90,7 +90,13 @@ user[coordinate_attributes][location][]=(latitude)
                 "user_ids": [
                     {
                         "$oid": "5390ccde3662360002000000"
-                    }
+                    },
+                    {
+                        "$oid": "5390d3353265380002010000"
+                    },
+                    {
+                        "$oid": "5390d5193265380002030000"
+                    },
                 ]
             }
         }
