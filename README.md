@@ -78,6 +78,19 @@ user[coordinate_attributes][location][]=(latitude)
 }
 ```
 
+* HTTP.PATCH - /tag
+```
+tags[]=tagString
+tags[]=tagString
+tags[]=tagString
+.
+.
+.
+```
+---
+```
+Nic nie zwraca
+```
 
 * HTTP.POST - /invitations/invite(.:format)
 ```
