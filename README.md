@@ -44,6 +44,41 @@ user[coordinate_attributes][location][]=(latitude)
 }
 ```
 
+* HTTP.GET - /tags(.:format)
+```json
+{
+    "tags": [
+        {
+            "tags": {
+                "_id": {
+                    "$oid": "5390cdd03662360002010000"
+                },
+                "name": "java",
+                "user_ids": [
+                    {
+                        "$oid": "5390ccde3662360002000000"
+                    }
+                ]
+            }
+        },
+        {
+            "tags": {
+                "_id": {
+                    "$oid": "5390cdd03662360002020000"
+                },
+                "name": "c++",
+                "user_ids": [
+                    {
+                        "$oid": "5390ccde3662360002000000"
+                    }
+                ]
+            }
+        }
+    ]
+}
+```
+
+
 * HTTP.POST - /invitations/invite(.:format)
 ```
 user_id=538faa9c3661650002580000
