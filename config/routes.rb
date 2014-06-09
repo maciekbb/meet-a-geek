@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/matches', to: 'users#matches'
   get '/users/:id/avatar', to: 'users#avatar'
 
-  resource :user, only: [:create, :update, :destroy]
+  resource :user
 
   get '/tags', to: "tags#index"
   resource :tag, only: [:update]

@@ -18,7 +18,8 @@ describe TagsController, :type => :controller do
     it "returns http success" do
       patch 'update', { tags: ["java", "c++"] }
 
-      expect(response.status).to eq 204
+      expect(response.status).to eq 200
+      expect(response.body).to match "java"
       expect(user.reload.tags.map(&:name).to_set).to eq ["java", "c++"].to_set
     end
   end

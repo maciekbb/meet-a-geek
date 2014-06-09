@@ -14,6 +14,13 @@ describe UsersController, :type => :controller do
     end
   end
 
+  describe "GET 'show'" do
+    it "returns http success" do
+      get 'show'
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "POST 'create'" do
     it "returns http success" do
       post 'create', { user: { name: "Piotrek", coordinate_attributes: { location: [20, 10] } } }
