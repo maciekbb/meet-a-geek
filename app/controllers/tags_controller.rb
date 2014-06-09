@@ -8,7 +8,7 @@ class TagsController < ApplicationController
       @user.tags << Tag.find_or_create_by(name: name)
     end
 
-    head 204
+    render json: @user.tags, statsu: :ok
   end
 
 end
