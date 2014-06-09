@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   field :name, type: String
+  field :description, type: String
   field :auth_token, type: String
 
   mount_uploader :avatar, AvatarUploader

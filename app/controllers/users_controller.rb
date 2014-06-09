@@ -5,6 +5,10 @@ class UsersController < ApplicationController
     render json: @user.matches, status: :ok
   end
 
+  def show
+    render json: @user, status: :ok
+  end
+
   def create
     user = User.new(user_attributes)
 
