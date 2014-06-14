@@ -26,6 +26,14 @@ describe InvitationsController, :type => :controller do
 
       expect(response.status).to eq 422
     end
+
+    it "can't invite one person twice" do
+      post 'invite', { user_id: another_user.id }, {}
+      expect(response.status).to eq 201
+
+      post 'invite', { user_id: another_user.id }, {}
+      expect(response.status).to eq 422
+    end
   end
 
   describe "POST 'accept'" do
