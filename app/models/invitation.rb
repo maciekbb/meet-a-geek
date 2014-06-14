@@ -9,4 +9,12 @@ class Invitation
   belongs_to :to, class_name: "User", inverse_of: :incoming_invitations
 
   validates :from, :to, presence: true
+
+  validate :cant_invite_one_person_twice, on: :create
+
+  def cant_invite_one_person_twice
+    if Invitation.where(from: self.from, to: self.to).any?
+      errors[:base] << "You can't invite one person twice"
+    end
+  end
 end
