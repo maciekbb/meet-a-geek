@@ -13,9 +13,9 @@ describe UsersController, :type => :controller do
       allow(User).to receive(:find_by) { user }
       allow(user).to receive(:matches) { [] }
 
-      get :matches, { tags: ["python"] }
+      get :matches, { tags: ["python"], percentage: 60 }
 
-      expect(user).to have_received(:matches).with(["python"])
+      expect(user).to have_received(:matches).with(["python"], 60)
       expect(response.status).to eq 200
     end
 
@@ -25,9 +25,9 @@ describe UsersController, :type => :controller do
       allow(user).to receive(:matches) { [] }
       allow(user).to receive(:tags) { ["java"] }
 
-      get :matches
+      get :matches, { percentage: 60 }
 
-      expect(user).to have_received(:matches).with(nil)
+      expect(user).to have_received(:matches).with(nil, 60)
       expect(response.status).to eq 200
     end
   end
