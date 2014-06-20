@@ -89,7 +89,7 @@ describe User, :type => :model do
     it "arent matches when dont share enought tags" do
       user_b.tags << java
 
-      expect(user_a.matches(["python", "erlang"], 70)).not_to include(user_b)
+      expect(user_a.matches(["java", "erlang"], 70)).not_to include(user_b)
       expect(user_a.matches(["python", "erlang"])).not_to include(user_b)
     end
   end
