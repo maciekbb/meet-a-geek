@@ -21,10 +21,12 @@ class User
     Invitation.where(from: another_user, to: self, accepted: true).any?
   end
 
-  def matches
+  def matches(with_tags = nil)
+    with_tags ||= tags
+
     if coordinate
       Coordinate.near(coordinate.location, 100).map(&:user).find_all do |user|
-        (user.tags & tags).size > 0
+        (user.tags & with_tags).size > 0
       end
     else
       []
