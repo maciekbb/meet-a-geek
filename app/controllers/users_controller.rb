@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:create]
 
   def matches
-    render json: @user.matches, status: :ok
+    render json: @user.matches(params[:tags]), status: :ok
   end
 
   def show

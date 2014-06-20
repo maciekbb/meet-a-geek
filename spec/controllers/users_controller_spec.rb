@@ -8,8 +8,26 @@ describe UsersController, :type => :controller do
   end
 
   describe "GET 'matches'" do
-    it "returns http success" do
-      get 'matches'
+    it "can pass tags" do
+      user = double("user")
+      allow(User).to receive(:find_by) { user }
+      allow(user).to receive(:matches) { [] }
+
+      get :matches, { tags: ["python"] }
+
+      expect(user).to have_received(:matches).with(["python"])
+      expect(response.status).to eq 200
+    end
+
+    it "use user's tags by default" do
+      user = double("user")
+      allow(User).to receive(:find_by) { user }
+      allow(user).to receive(:matches) { [] }
+      allow(user).to receive(:tags) { ["java"] }
+
+      get :matches
+
+      expect(user).to have_received(:matches).with(nil)
       expect(response.status).to eq 200
     end
   end
