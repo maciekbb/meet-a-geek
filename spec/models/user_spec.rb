@@ -77,6 +77,21 @@ describe User, :type => :model do
       expect(user_a.matches).not_to include(user_b)
       expect(user_b.matches).not_to include(user_a)
     end
+
+    it "are matches when share enought tags" do
+      user_b.tags << java
+
+      expect(user_a.matches(["java"], 70)).to include(user_b)
+      expect(user_a.matches(["python", "java"], 40)).to include(user_b)
+      expect(user_a.matches(["python", "java"])).to include(user_b)
+    end
+
+    it "arent matches when dont share enought tags" do
+      user_b.tags << java
+
+      expect(user_a.matches(["python", "erlang"], 70)).not_to include(user_b)
+      expect(user_a.matches(["python", "erlang"])).not_to include(user_b)
+    end
   end
 
 end
