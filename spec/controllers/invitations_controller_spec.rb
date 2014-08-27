@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe InvitationsController, :type => :controller do
 
-  let(:user) { User.create(name: "Maciek", auth_token: "abc") }
-  let(:another_user) { User.create(name: "Krzysiek") }
+  let(:user) { User.create(name: "Maciek", password: "test", auth_token: "abc") }
+  let(:another_user) { User.create(name: "Krzysiek", password: "test") }
 
   before(:each) do
     request.headers['Authorization'] = token_header(user.auth_token)

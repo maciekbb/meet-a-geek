@@ -4,14 +4,14 @@ describe User, :type => :model do
 
   describe "validation" do
     it "must have uniq name" do
-      User.create(name: "maciek")
+      User.create(name: "maciek", password: "test")
       expect(User.new(name: "maciek")).not_to be_valid
     end
   end
 
   describe "invitations" do
-    let(:user_a) { User.create(name: "Maciek")  }
-    let(:user_b) { User.create(name: "Piotrek")  }
+    let(:user_a) { User.create(name: "Maciek", password: "test")  }
+    let(:user_b) { User.create(name: "Piotrek", password: "test")  }
 
     it "can invite another user" do
       invitation = user_a.outcoming_invitations.create(to: user_b)
@@ -24,9 +24,9 @@ describe User, :type => :model do
   end
 
   describe "tags" do
+    let(:user) { User.create(name: "Maciek", password: "test")  }
     let(:java) { Tag.create(name: "java") }
-    let(:python) { Tag.create(name: "python") }
-    let(:user) { User.create(name: "Maciek")  }
+    let(:python) { Tag.create(name: "python") }  
 
     it "can have multiple tags" do
       user.tags << java
@@ -38,8 +38,8 @@ describe User, :type => :model do
   end
 
   describe "able to meet" do
-    let(:user_a) { User.create(name: "Maciek")  }
-    let(:user_b) { User.create(name: "Piotrek")  }
+    let(:user_a) { User.create(name: "Maciek", password: "test")  }
+    let(:user_b) { User.create(name: "Piotrek", password: "test")  }
 
     it "can't meet when no invitations" do
       expect(user_a).not_to be_able_to_meet(user_b)
@@ -63,8 +63,8 @@ describe User, :type => :model do
 
   describe "matches" do
 
-    let(:user_a) { User.create(name: "Maciek", coordinate_attributes: { location: [10, 20] })  }
-    let(:user_b) { User.create(name: "Piotrek", coordinate_attributes: { location: [10, 20] })  }
+    let(:user_a) { User.create(name: "Maciek", password: "test", coordinate_attributes: { location: [10, 20] })  }
+    let(:user_b) { User.create(name: "Piotrek", password: "test", coordinate_attributes: { location: [10, 20] })  }
 
     let(:java) { Tag.create(name: "java") }
     let(:python) { Tag.create(name: "python") }

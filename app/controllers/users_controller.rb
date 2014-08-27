@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   private
 
   def user_attributes
-    new_params = params.require(:user).permit(:name, :avatar, { coordinate_attributes: { location: [] } })
+    new_params = params.require(:user).permit(:name, :password, :password_confirmation, :avatar, { coordinate_attributes: { location: [] } })
     if new_params[:coordinate_attributes]
       new_params[:coordinate_attributes][:location] = new_params[:coordinate_attributes][:location].map(&:to_f)
     end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/users/:id/avatar', to: 'users#avatar'
 
   resource :user
+  resources :sessions, only: [:create]
 
   get '/tags', to: "tags#index"
   resource :tag, only: [:update]

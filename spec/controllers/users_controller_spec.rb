@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController, :type => :controller do
-  let(:user) { User.create(name: "Maciek", auth_token: "abc") }
+  let(:user) { User.create(name: "Maciek", password: "test", auth_token: "abc") }
 
   before(:each) do
     request.headers['Authorization'] = token_header(user.auth_token)
@@ -41,7 +41,7 @@ describe UsersController, :type => :controller do
 
   describe "POST 'create'" do
     it "returns http success" do
-      post 'create', { user: { name: "Piotrek", coordinate_attributes: { location: [20, 10] } } }
+      post 'create', { user: { name: "Piotrek", password: "test", password_confirmation: "test", coordinate_attributes: { location: [20, 10] } } }
 
       new_user = JSON.parse(response.body)
       expect(new_user["name"]).to eq "Piotrek"

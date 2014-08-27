@@ -1,8 +1,13 @@
 class User
   include Mongoid::Document
+  include ActiveModel::SecurePassword
+
+  has_secure_password
+
   field :name, type: String
   field :description, type: String
   field :auth_token, type: String
+  field :password_digest, type: String
 
   validates :name, uniqueness: true
 
