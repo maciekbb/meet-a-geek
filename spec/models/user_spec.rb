@@ -2,6 +2,13 @@ require 'spec_helper'
 
 describe User, :type => :model do
 
+  describe "validation" do
+    it "must have uniq name" do
+      User.create(name: "maciek")
+      expect(User.new(name: "maciek")).not_to be_valid
+    end
+  end
+
   describe "invitations" do
     let(:user_a) { User.create(name: "Maciek")  }
     let(:user_b) { User.create(name: "Piotrek")  }

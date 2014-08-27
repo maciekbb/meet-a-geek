@@ -4,6 +4,8 @@ class User
   field :description, type: String
   field :auth_token, type: String
 
+  validates :name, uniqueness: true
+
   mount_uploader :avatar, AvatarUploader
 
   has_many :incoming_invitations, class_name: "Invitation", inverse_of: :to
