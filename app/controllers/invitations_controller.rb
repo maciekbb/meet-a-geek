@@ -36,6 +36,15 @@ class InvitationsController < ApplicationController
     end
   end
 
+  def cancel
+    invitation = @user.accepted_invitations.find do |inv|
+      inv.id.to_s == params[:invitation_id]
+    end
+
+    invitation.destroy
+    head 200
+  end
+
   def incoming_invitations
     invitations = @user.incoming_invitations
     render json: invitations, status: 200

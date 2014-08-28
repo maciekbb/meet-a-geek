@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe InvitationsController, :type => :controller do
 
-  let(:user) { User.create(name: "Maciek", password: "test", auth_token: "abc") }
+  let(:user) { User.create(name: "Maciek", password: "test") }
   let(:another_user) { User.create(name: "Krzysiek", password: "test") }
 
   before(:each) do
@@ -20,8 +20,6 @@ describe InvitationsController, :type => :controller do
     end
 
     it "invited user can't be nil" do
-
-      request.headers['Authorization'] = token_header(user.auth_token)
       patch 'invite', { user_id: nil }
 
       expect(response.status).to eq 422
@@ -55,6 +53,22 @@ describe InvitationsController, :type => :controller do
       expect(response.status).to eq 204
 
       expect(invitation.reload.rejected).to eq true
+    end
+  end
+
+  describe "POST 'cancel'" do
+    it "cancels a own invitation" do
+      invitation = Invitation.create(from: another_user, to: user, accepted: true)
+
+      post 'cancel', { invitation_id: invitation.id }
+      expect(response.status).to eq 200
+    end
+
+    it "cancels a received invitation" do
+      invitation = Invitation.create(from: user, to: another_user, accepted: true)
+
+      post 'cancel', { invitation_id: invitation.id }
+      expect(response.status).to eq 200
     end
   end
 

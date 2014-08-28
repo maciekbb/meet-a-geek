@@ -21,12 +21,20 @@ describe User, :type => :model do
 
       expect(user_b.incoming_invitations).to eq [invitation]
     end
+
+    it "can access accepted invitations" do
+      invitation = user_a.outcoming_invitations.create(to: user_b)
+      invitation.accept!
+
+      expect(user_a.accepted_invitations).to eq [invitation]
+      expect(user_b.accepted_invitations).to eq [invitation]
+    end
   end
 
   describe "tags" do
     let(:user) { User.create(name: "Maciek", password: "test")  }
     let(:java) { Tag.create(name: "java") }
-    let(:python) { Tag.create(name: "python") }  
+    let(:python) { Tag.create(name: "python") }
 
     it "can have multiple tags" do
       user.tags << java

@@ -44,6 +44,10 @@ class User
     end
   end
 
+  def accepted_invitations
+    incoming_invitations.where(accepted: true) + outcoming_invitations.where(accepted: true)
+  end
+
   protected
 
   def set_auth_token

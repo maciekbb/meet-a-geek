@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     patch 'reject'
     get 'incoming_invitations'
     get 'outcoming_invitations'
+    delete 'cancel'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

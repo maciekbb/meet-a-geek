@@ -17,4 +17,8 @@ class Invitation
       errors[:base] << "You can't invite one person twice"
     end
   end
+
+  def accept!
+    update!(accepted: true)
+  end
 end
