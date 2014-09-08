@@ -2,12 +2,16 @@ class User
   include Mongoid::Document
   include ActiveModel::SecurePassword
 
+  after_create :initialize_user
+
   has_secure_password
 
   field :name, type: String
   field :description, type: String
   field :auth_token, type: String
   field :password_digest, type: String
+
+  field :blocked_user_ids, type: Array
 
   validates :name, uniqueness: true
 
@@ -60,5 +64,9 @@ class User
       token = SecureRandom.hex
       break token unless self.class.where(auth_token: token).any?
     end
+  end
+
+  def initialize_user
+    self.blocked_user_ids = []
   end
 end

@@ -32,6 +32,15 @@ describe InvitationsController, :type => :controller do
       post 'invite', { user_id: another_user.id }, {}
       expect(response.status).to eq 422
     end
+
+    it "can't invite user you were blocked by" do
+      another_user.blocked_user_ids = [user.id]
+
+      post 'invite', { user_id: another_user.id }, {}
+
+      status = JSON.parse(response.body)
+      expect(status).to eq "blocked"
+    end
   end
 
   describe "POST 'accept'" do
