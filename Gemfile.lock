@@ -80,6 +80,7 @@ GEM
     multi_json (1.10.1)
     optionable (0.2.0)
     origin (2.1.1)
+    pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -168,6 +169,7 @@ DEPENDENCIES
   database_cleaner
   jquery-rails
   mongoid (~> 4.0.0.beta)
+  pg
   rails (~> 4.1.0)
   rails_12factor (= 0.0.2)
   rspec-rails (~> 3.0.0.beta)
