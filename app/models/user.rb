@@ -2,8 +2,6 @@ class User
   include Mongoid::Document
   include ActiveModel::SecurePassword
 
-  after_create :initialize_user
-
   has_secure_password
 
   field :name, type: String
@@ -11,7 +9,7 @@ class User
   field :auth_token, type: String
   field :password_digest, type: String
 
-  field :blocked_user_ids, type: Array
+  field :blocked_users_ids, type: Array, default: []
 
   validates :name, uniqueness: true
 
@@ -52,6 +50,20 @@ class User
     incoming_invitations.where(accepted: true) + outcoming_invitations.where(accepted: true)
   end
 
+  def blocks_user_with_id? (user_id)
+    blocked_users_ids.include? user_id
+  end
+
+  def block_user_with_id (user_id)
+    self.blocked_users_ids << user_id unless blocks_user_with_id? user_id
+    save!
+  end
+
+  def unblock_user_with_id (user_id)
+    self.blocked_users_ids.delete(user_id)
+    save!
+  end
+
   protected
 
   def set_auth_token
@@ -64,9 +76,5 @@ class User
       token = SecureRandom.hex
       break token unless self.class.where(auth_token: token).any?
     end
-  end
-
-  def initialize_user
-    self.blocked_user_ids = []
   end
 end

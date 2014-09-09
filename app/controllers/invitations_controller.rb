@@ -10,7 +10,7 @@ class InvitationsController < ApplicationController
     if invitation.save
       render json: invitation, status: :created
     else
-      render json: invitation.errors, status: 422
+      render json: { errors: invitation.errors }, status: 422
     end
   end
 

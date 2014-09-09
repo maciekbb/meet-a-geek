@@ -20,7 +20,7 @@ class Invitation
   end
 
   def cant_invite_user_who_blocked_you
-    if self.to.try(:blocked_user_ids).try(:include?, self.id)
+    if to and to.blocks_user_with_id? from.id
       errors["base"] << "You were blocked by this user"
     end
   end

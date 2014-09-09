@@ -9,6 +9,21 @@ describe User, :type => :model do
     end
   end
 
+  describe "blocking" do
+    it "can block an user" do
+      u = User.create(name: "maciek", password: "test")
+      u.block_user_with_id(3)
+      expect(u.blocked_users_ids).to eq [3]
+    end
+
+    it "can unblock an user" do
+      u = User.create(name: "maciek", password: "test")
+      u.block_user_with_id(3)
+      u.unblock_user_with_id(3)
+      expect(u.blocked_users_ids).to eq []
+    end
+  end
+
   describe "invitations" do
     let(:user_a) { User.create(name: "Maciek", password: "test")  }
     let(:user_b) { User.create(name: "Piotrek", password: "test")  }

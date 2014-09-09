@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/tags', to: "tags#index"
   resource :tag, only: [:update]
 
-  resources :block_users, only: [:create, :destroy]
+  resource :block_user
 
   namespace "invitations" do
     post 'invite'
