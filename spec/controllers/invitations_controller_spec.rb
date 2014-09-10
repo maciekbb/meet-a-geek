@@ -53,6 +53,15 @@ describe InvitationsController, :type => :controller do
 
       expect(invitation.reload.accepted).to eq true
     end
+
+    it "accepts a invitation by user_id" do
+      invitation = Invitation.create(from: another_user, to: user)
+
+      patch 'accept', { user_id: another_user.id }
+      expect(response.status).to eq 204
+
+      expect(invitation.reload.accepted).to eq true
+    end
   end
 
   describe "POST 'reject'" do
@@ -60,6 +69,15 @@ describe InvitationsController, :type => :controller do
       invitation = Invitation.create(from: another_user, to: user)
 
       post 'reject', { invitation_id: invitation.id }
+      expect(response.status).to eq 204
+
+      expect(invitation.reload.rejected).to eq true
+    end
+
+    it "rejects a invitation by user_id" do
+      invitation = Invitation.create(from: another_user, to: user)
+
+      post 'reject', { user_id: another_user.id }
       expect(response.status).to eq 204
 
       expect(invitation.reload.rejected).to eq true

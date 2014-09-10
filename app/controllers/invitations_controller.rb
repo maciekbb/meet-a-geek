@@ -15,7 +15,8 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    invitation = @user.incoming_invitations.find(params[:invitation_id])
+    invitation = find_incoming_by_invitation_id_or_user_id(params[:invitation_id], params[:user_id])
+
     invitation.accepted = true
 
     if invitation.save
@@ -26,7 +27,7 @@ class InvitationsController < ApplicationController
   end
 
   def reject
-    invitation = @user.incoming_invitations.find(params[:invitation_id])
+    invitation = find_incoming_by_invitation_id_or_user_id(params[:invitation_id], params[:user_id])
     invitation.rejected = true
 
     if invitation.save
@@ -53,5 +54,19 @@ class InvitationsController < ApplicationController
   def outcoming_invitations
     invitations = @user.outcoming_invitations
     render json: invitations, status: 200
+  end
+
+  private
+
+  def find_incoming_by_invitation_id_or_user_id(invitation_id, user_id)
+    if invitation_id
+      return @user.incoming_invitations.find(params[:invitation_id])
+    end
+
+    if user_id
+      return Invitation.where(to_id: @user.id, from_id: user_id).first
+    end
+
+    raise "No user_id or invitation_id given"
   end
 end
