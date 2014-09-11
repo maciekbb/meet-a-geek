@@ -10,10 +10,15 @@ DELETE | /user(.:format) | users#destroy | doing nothing for now
 GET | /tags(.:format) | tags#index | get current users's tags
 PATCH | /tag(.:format) | tags#update | update tags
 POST | /invitations/invite(.:format) | invitations#invite | creates an invitation
-PATCH | /invitations/accept(.:format) | invitations#accept | accepts an invitation
-PATCH | /invitations/reject(.:format) | invitations#reject | rejects an invitation
+PATCH | /invitations/accept(.:format) | invitations#accept | accepts an invitation by invitation_id
+PATCH | /invitations/accept(.:format) | invitations#accept | accepts an invitation by user_id
+PATCH | /invitations/reject(.:format) | invitations#reject | rejects an invitation by invitation_id
+PATCH | /invitations/reject(.:format) | invitations#reject | rejects an invitation by user_id
 GET | /invitations/incoming_invitations(.:format) | invitations#incoming_invitations | fetch incoming invitations
 GET | /invitations/outcoming_invitations(.:format) | invitations#outcoming_invitations | fetch outcoming invitatios
+POST | /sessions | sessions#create | log in user and get its data by name and password
+POST | /block_user | block_users#create | blocks user with id passed as request parameter
+DELETE | /block_user | block_users#destroy | unblocks uset with id passed as request parameter
 
 # Http Queries with Returned JSONs
 
@@ -195,6 +200,15 @@ invitation_id=538fb13b3661650002690000
 Nic nie zwraca
 ```
 
+* HTTP.PATCH - /invitations/accept(.:format)
+```
+user_id=5411d68d6234660002010000
+```
+---
+```
+Nic nie zwraca
+```
+
 * HTTP.PATCH - /invitations/reject(.:format)
 ```
 invitation_id=538fb13b3661650002690000
@@ -202,6 +216,51 @@ invitation_id=538fb13b3661650002690000
 ---
 ```
 Nic nie zwraca
+```
+
+* HTTP.PATCH - /invitations/reject(.:format)
+```
+user_id=5411d68d6234660002010000
+```
+---
+```
+Nic nie zwraca
+```
+
+* HTTP.POST - /sessions
+```
+name=testName1
+password=test
+```
+---
+```
+{
+    "id": {
+        "$oid": "5411d4bb6234660002000000"
+    },
+    "name": "testName1",
+    "description": null,
+    "blocked_users_ids": [],
+    "auth_token": "3fe230a1410cf7a0e4215b83682d389b"
+}
+```
+
+* HTTP.POST - /block_user
+```
+user_id=5411d4bb6234660002000000
+```
+---
+```
+Nic nie zwraca (wynik można zobaczyć wykonując zapytanie sessions - w tabeli "blocked_users_ids" pojawi się zablokowane id użytkownika)
+```
+
+* HTTP.DELETE - /block_user
+```
+user_id=5411d4bb6234660002000000
+```
+---
+```
+Nic nie zwraca (wynik można zobaczyć wykonując zapytanie sessions - w tabeli "blocked_users_ids" zniknie odblokowane id użytkownika)
 ```
 
 # Usage example
