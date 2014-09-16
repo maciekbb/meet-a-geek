@@ -85,18 +85,36 @@ describe InvitationsController, :type => :controller do
   end
 
   describe "POST 'cancel'" do
-    it "cancels a own invitation" do
-      invitation = Invitation.create(from: another_user, to: user, accepted: true)
+    describe "by invitation_id" do
+      it "cancels a own invitation" do
+        invitation = Invitation.create(from: another_user, to: user, accepted: true)
 
-      post 'cancel', { invitation_id: invitation.id }
-      expect(response.status).to eq 200
+        post 'cancel', { invitation_id: invitation.id }
+        expect(response.status).to eq 200
+      end
+
+      it "cancels a received invitation" do
+        invitation = Invitation.create(from: user, to: another_user, accepted: true)
+
+        post 'cancel', { invitation_id: invitation.id }
+        expect(response.status).to eq 200
+      end
     end
 
-    it "cancels a received invitation" do
-      invitation = Invitation.create(from: user, to: another_user, accepted: true)
+    describe "by user_id" do
+      it "cancels a own invitation" do
+        invitation = Invitation.create(from: another_user, to: user, accepted: true)
 
-      post 'cancel', { invitation_id: invitation.id }
-      expect(response.status).to eq 200
+        post 'cancel', { user_id: user.id }
+        expect(response.status).to eq 200
+      end
+
+      it "cancels a received invitation" do
+        invitation = Invitation.create(from: user, to: another_user, accepted: true)
+
+        post 'cancel', { user_id: another_user.id }
+        expect(response.status).to eq 200
+      end
     end
   end
 

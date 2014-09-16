@@ -39,7 +39,7 @@ class InvitationsController < ApplicationController
 
   def cancel
     invitation = @user.accepted_invitations.find do |inv|
-      inv.id.to_s == params[:invitation_id]
+      inv.id.to_s == params[:invitation_id] or [inv.to.id, inv.from.id].map(&:to_s).include? params[:user_id]
     end
 
     invitation.destroy
